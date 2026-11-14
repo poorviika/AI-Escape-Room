@@ -1,0 +1,9 @@
+digraph {
+  graph [bgcolor="white", pad=.2, nodesep=.5, rankdir=LR];
+  node [shape=box, style="rounded,filled", fillcolor="#e9efe7", fontname="Helvetica"];
+  browser [label="Player browser"]; api [label="FastAPI"]; history [label="Session transcript"]; model [label="LLM Game Master"];
+  browser -> api [label=" action"];
+  api -> history [dir=both, label=" turns"];
+  api -> model [dir=both, label=" prompt / reply"];
+  api -> browser [label=" story and status"];
+}
