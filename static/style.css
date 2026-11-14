@@ -1,0 +1,22 @@
+:root{color-scheme:dark;font-family:"Geist",system-ui,sans-serif;background:#121714;color:#eeeadd}
+*{box-sizing:border-box}
+body{margin:0}
+main{width:min(860px,100%);margin:auto;padding:clamp(18px,5vw,56px)}
+header{border-bottom:1px solid #776342;margin-bottom:18px;padding-bottom:18px}
+h1{font:clamp(2.1rem,6vw,4rem)/1.1 Georgia,serif;font-weight:normal;color:#f3d29b;margin:0}
+p{line-height:1.55;margin:.35rem 0}
+header p,#status{color:#c8c8b3}
+nav,.input-row{display:flex;gap:8px;flex-wrap:wrap}
+nav #restart{margin-left:auto}
+button,input{font:inherit;border:1px solid #787760;border-radius:7px;padding:.7rem .9rem}
+button{background:#30382c;color:#faf0d4;cursor:pointer}
+button[aria-pressed=true],form button{background:#e7bd7b;color:#181912;border-color:#e7bd7b}
+button:disabled{opacity:.62;cursor:default}
+#status{min-height:1.55em;font-size:.95rem;margin:13px 0}
+#log{height:clamp(260px,48vh,560px);overflow:auto;background:#1a221b;border:1px solid #465144;border-radius:10px;padding:14px}
+article{padding:11px 13px;margin-bottom:9px;border-radius:6px;background:#242c23;overflow-wrap:anywhere}
+article.user{background:#373126;margin-left:12%}
+article strong{color:#efca92;font-size:.88rem}
+form{margin-top:15px}
+label{display:block;margin-bottom:7px}
+input{flex:1;min-width:0;background:#1a221b;color:#fff}

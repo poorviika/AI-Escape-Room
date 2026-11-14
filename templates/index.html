@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Locked Library</title>
+<link rel="stylesheet" href="/static/style.css">
+<script defer src="/static/game.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>The Locked Library</h1>
+    <p>Follow the clues and find a way out.</p>
+  </header>
+  <nav aria-label="Game version">
+    <button type="button" data-version="v1">Version 1 · AI Game Master</button>
+    <button type="button" data-version="v2">Version 2 · Validated rules</button>
+    <button type="button" id="restart">Restart</button>
+  </nav>
+  <p id="status" role="status"></p>
+  <section id="log" aria-label="Game transcript" aria-live="polite"></section>
+  <form>
+    <label for="action">Your action</label>
+    <div class="input-row">
+      <input id="action" maxlength="500" required placeholder="Examine the desk" autocomplete="off">
+      <button type="submit">Send</button>
+    </div>
+  </form>
+</main>
+</body>
+</html>
