@@ -1,9 +1,9 @@
 digraph {
   graph [bgcolor="white", pad=.2, nodesep=.45, rankdir=LR];
   node [shape=box, style="rounded,filled", fillcolor="#e9efe7", fontname="Helvetica"];
-  browser [label="Player browser"]; api [label="FastAPI"]; engine [label="Python action validator"]; state [label="Session state"]; model [label="LLM mood selector"];
+  browser [label="Player browser"]; api [label="FastAPI"]; engine [label="Python action validator"]; state [label="Session state"]; model [label="LLM narrator"];
   browser -> api [dir=both, label=" action / story"];
   api -> engine [dir=both, label=" action / outcome"];
   engine -> state [dir=both, label=" read / update"];
-  api -> model [dir=both, label=" outcome / mood"];
+  api -> model [dir=both, label=" outcome / narration"];
 }
