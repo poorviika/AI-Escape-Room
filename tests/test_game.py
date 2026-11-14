@@ -58,12 +58,28 @@ class GameTests(unittest.TestCase):
         self.assertEqual(v1.play(history, "examine the bookshelf", scripted),
                          ("The bookshelf holds marked books.", False))
 
-    def test_v2_discards_unapproved_model_text(self):
-        outcome = "The exit stays locked."
-        self.assertEqual(v2.narrate(outcome, lambda _: "The exit magically opens."), outcome)
-        self.assertEqual(v2.narrate(outcome, lambda _: None), outcome)
-        self.assertEqual(v2.narrate(outcome, lambda _: "lamp"), "The lamp flickers. " + outcome)
+    def test_v2_narration_includes_authoritative_result(self):
+        outcome = "You need to collect the brass key first."
 
+        def scripted_model(messages):
+            self.assertEqual(messages[-1]["content"], outcome)
+            return "You must find the brass key before proceeding."
+
+        result = v2.narrate(outcome, scripted_model)
+
+        self.assertEqual(
+            result,
+            "You must find the brass key before proceeding."
+            "\n\nGame result: " + outcome,
+        )
+
+    def test_v2_narration_falls_back_when_model_has_no_reply(self):
+        outcome = "You need to collect the brass key first."
+
+        for reply in (None, "", "   "):
+            with self.subTest(reply=reply):
+                result = v2.narrate(outcome, lambda messages: reply)
+                self.assertEqual(result, outcome)
 
 if __name__ == "__main__":
     unittest.main()

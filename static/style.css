@@ -20,3 +20,6 @@ article strong{color:#efca92;font-size:.88rem}
 form{margin-top:15px}
 label{display:block;margin-bottom:7px}
 input{flex:1;min-width:0;background:#1a221b;color:#fff}
+article p {
+    white-space: pre-wrap;
+}

@@ -1,7 +1,6 @@
-"""Small Groq chat client with no dependency on an SDK."""
 import json
 import os
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from dotenv import load_dotenv
@@ -14,10 +13,14 @@ def configured():
 
 
 def chat(messages):
+    key = os.getenv("GROQ_API_KEY", "").strip()
+    if not key:
+        return None
+
     payload = {
         "model": os.getenv("GROQ_MODEL", "openai/gpt-oss-20b"),
         "messages": messages,
-        "max_completion_tokens": 512,
+        "max_completion_tokens": 2048,
         "temperature": 0.2,
     }
     request = Request(
@@ -25,12 +28,17 @@ def chat(messages):
         data=json.dumps(payload).encode(),
         headers={
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + os.environ["GROQ_API_KEY"].strip(),
+            "User-Agent": "TheLockedLibrary/1.0",
+            "Authorization": f"Bearer {key}",
         },
     )
+
     try:
         with urlopen(request, timeout=12) as response:
-            result = json.load(response)["choices"][0]["message"]["content"]
-        return result.strip() or None
-    except (URLError, OSError, ValueError, KeyError, IndexError, TypeError, AttributeError):
+            content = json.load(response)["choices"][0]["message"]["content"]
+        return content.strip() or None if isinstance(content, str) else None
+    except HTTPError as error:
+        print(f"Groq request failed: HTTP {error.code}")
+        return None
+    except (URLError, OSError, ValueError, KeyError, IndexError, TypeError):
         return None
